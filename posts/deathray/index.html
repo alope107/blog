@@ -109,7 +109,7 @@
     <p>I wonder if part of the challenge Apple faces in fixing these type of issues is due to the architecture of M-series chips. The OS kernel cannot directly pre-empt the GPU. Instead, GPU handling is performed by a coprocessor known as the ASC which the OS kernel communicates with. All the GPU pre-emption logic lives in the ASC firmware. Asahi Lina has an <a href="https://asahilinux.org/2022/11/tales-of-the-m1-gpu/">excellent writeup</a> on the M-series GPUs that explores the architecture in more detail.</p>
 
     <h2>How was the deathray found?</h2>
-    <p>I found this issue the old fashioned way: by accident! I was learning WebGPU and accidentally made an infinite loop. I was surprised when it hung my computer and of course asked "Does it do that every time?" Sure enough it does! I can't be the first person to have tripped across this.</p>
+    <p>I found this issue the old fashioned way: by accident! I was learning WebGPU at the <a href="https://www.recurse.com/">Recurse Center</a> and accidentally made an infinite loop. I was surprised when it hung my computer and of course asked "Does it do that every time?" Sure enough it does! I can't be the first person to have tripped across this.</p>
 
     <h2>Disclosure</h2>
     <p>The issue was disclosed to Apple Security on 7/27/26. Apple quickly reproduced the issue and stated that they intended to fix it. They gave a fix timeline which was marked as confidential, so I will not write it here.</p>
@@ -129,6 +129,52 @@
         <a id="liLink" href="https://www.linkedin.com/in/auberon-lopez/"><img id="liLogo" src="https://auberon.xyz/images/liLogo.png"></a>
         <a class="ghLink" href="https://github.com/alope107"><img id="ghLogo" src="https://auberon.xyz/images/ghLogo.png"><span>alope107</span></a>
         <a class="ghLink" href="https://github.com/auberonedu"><img id="ghLogo" src="https://auberon.xyz/images/ghLogo.png"><span>auberonedu</span></a>
+        <a id="rcLink" href="https://www.recurse.com/"><svg class="rc-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 15">
+          <rect class="rc-logo__primary" x="0" y="0" width="12" height="1" fill="#2a2d2d"></rect>
+          <rect class="rc-logo__primary" x="0" y="0" width="1" height="10" fill="#2a2d2d"></rect>
+          <rect class="rc-logo__primary" x="11" y="0" width="1" height="10" fill="#2a2d2d"></rect>
+          <rect class="rc-logo__primary" x="0" y="9" width="12" height="1" fill="#2a2d2d"></rect>
+
+          <rect class="rc-logo__primary" x="4" y="9" width="4" height="3" fill="#2a2d2d"></rect>
+
+          <rect class="rc-logo__primary" x="1" y="11" width="10" height="1" fill="#2a2d2d"></rect>
+          <rect class="rc-logo__primary" x="1" y="11" width="1" height="4" fill="#2a2d2d"></rect>
+          <rect class="rc-logo__primary" x="10" y="11" width="1" height="4" fill="#2a2d2d"></rect>
+          <rect class="rc-logo__primary" x="1" y="14" width="10" height="1" fill="#2a2d2d"></rect>
+
+          <rect class="rc-logo__primary" x="0" y="12" width="2" height="3" fill="#2a2d2d"></rect>
+          <rect class="rc-logo__primary" x="10" y="12" width="2" height="3" fill="#2a2d2d"></rect>
+
+          <rect class="rc-logo__primary" x="10" y="12" width="2" height="3" fill="#2a2d2d"></rect>
+
+          <rect class="rc-logo__primary" x="1" y="11" width="2" height="2" fill="#2a2d2d"></rect>
+          <rect class="rc-logo__primary" x="4" y="11" width="1" height="2" fill="#2a2d2d"></rect>
+          <rect class="rc-logo__primary" x="6" y="11" width="1" height="2" fill="#2a2d2d"></rect>
+          <rect class="rc-logo__primary" x="8" y="11" width="1" height="2" fill="#2a2d2d"></rect>
+
+          <rect class="rc-logo__primary" x="9" y="13" width="2" height="2" fill="#2a2d2d"></rect>
+          <rect class="rc-logo__primary" x="7" y="13" width="1" height="2" fill="#2a2d2d"></rect>
+          <rect class="rc-logo__primary" x="5" y="13" width="1" height="2" fill="#2a2d2d"></rect>
+          <rect class="rc-logo__primary" x="3" y="13" width="1" height="2" fill="#2a2d2d"></rect>
+
+          <rect class="rc-logo__secondary" x="1" y="1" width="10" height="8" fill="#fff"></rect>
+          <rect class="rc-logo__secondary" x="2" y="13" width="1" height="1" fill="#fff"></rect>
+          <rect class="rc-logo__secondary" x="3" y="12" width="1" height="1" fill="#fff"></rect>
+          <rect class="rc-logo__secondary" x="4" y="13" width="1" height="1" fill="#fff"></rect>
+          <rect class="rc-logo__secondary" x="5" y="12" width="1" height="1" fill="#fff"></rect>
+          <rect class="rc-logo__secondary" x="6" y="13" width="1" height="1" fill="#fff"></rect>
+          <rect class="rc-logo__secondary" x="7" y="12" width="1" height="1" fill="#fff"></rect>
+          <rect class="rc-logo__secondary" x="8" y="13" width="1" height="1" fill="#fff"></rect>
+          <rect class="rc-logo__secondary" x="9" y="12" width="1" height="1" fill="#fff"></rect>
+
+          <rect class="rc-logo__primary" x="2" y="2" width="8" height="6" fill="#2a2d2d"></rect>
+
+          <rect class="rc-logo__accent rc-logo__pixel1" x="2" y="3" width="1" height="1" fill="#3dc06c"></rect>
+          <rect class="rc-logo__accent rc-logo__pixel2" x="4" y="3" width="1" height="1" fill="#3dc06c"></rect>
+          <rect class="rc-logo__accent rc-logo__pixel3" x="6" y="3" width="1" height="1" fill="#3dc06c"></rect>
+          <rect class="rc-logo__accent rc-logo__pixel4" x="3" y="5" width="2" height="1" fill="#3dc06c"></rect>
+          <rect class="rc-logo__accent rc-logo__pixel5" x="6" y="5" width="2" height="1" fill="#3dc06c"></rect>
+        </svg></a>
     </footer>
   </body>
 </html>
