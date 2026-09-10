@@ -2,8 +2,13 @@ body {
     padding: 2rem;
 }
 main {
-    width: min(40rem, 100%);
+    width: min(60rem, 100%);
     display: block;
+}
+
+a {
+    text-decoration: underline;
+    font-size: .95em;
 }
 
 #deathrayLink {
@@ -83,4 +88,14 @@ p {
     to {
         rotate: 360deg
     }
+}
+
+#warning {
+    color: red;
+    font-weight: bold;
+    text-align: center;
+}
+
+h2 {
+    text-align: center;
 }
