@@ -68,11 +68,11 @@
     <h3>Compute Shader</h3>
     <pre>
       <code>
-@group(0) @binding(0) var<storage, read_write> data : array<vec4f>; 
+@group(0) @binding(0) var&lt;storage, read_write&gt; data : array&lt;vec4f&gt;;
 
 @compute @workgroup_size(1) fn compute() {
   // no i++, loop spins endlessly
-  for(var i = 0u; i &lt; 1;) { 
+  for(var i = 0u; i &lt; 1;) {
     data[i+1] = data[i];
   }
 }
@@ -82,17 +82,17 @@
     <h3>Render Shaders</h3>
     <pre>
       <code>
-@group(0) @binding(0) var<storage, read> data : array<vec4f>; 
+@group(0) @binding(0) var&lt;storage, read&gt; data : array&lt;vec4f&gt;;
 
 @vertex fn vert(@builtin(vertex_index) vertexIdx : u32)
-              -> @builtin(position) vec4f {
+              -&gt; @builtin(position) vec4f {
   // attempts to read from same buffer the compute shader writes to
-  let datum = data[vertexIdx]; 
+  let datum = data[vertexIdx];
   return datum;
 }
 
 @fragment fn frag(@builtin(position) pos : vec4f)
-               -> @location(0) vec4f {
+               -&gt; @location(0) vec4f {
   return pos;
 }
       </code>
