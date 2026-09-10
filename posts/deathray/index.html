@@ -9,14 +9,15 @@
     <main>
     <h1>The Deathray</h1>
     <p>A simple way for an untrusted site to freeze a Mac</p>
+    <p>September 10th, 2026</p>
 
     <h2>TL;DR</h2>
     <p>A WebGPU shader on an untrusted site can hang a Mac's graphics, making the desktop UI unusable until a restart is forced. All the victim needs to do is click a link. This issue reproduces cross-browser on MacOS, but not other OSes.</p>
 
     <h2>Try the Deathray!</h2>
-    <p id="warning">THE BELOW BUTTON WILL FREEZE YOUR MAC. MAKE SURE YOU HAVE EVERYTHING SAVED.</p>
+    <p id="warning">THE BELOW BUTTON WILL FREEZE YOUR MAC. IT MAY SLOW OTHER OSes</p>
 
-    <a id="deathrayLink" href="https://google.com">
+    <a id="deathrayLink" href="https://auberon.xyz/deathray">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" fill="none">
       <defs>
         <circle id="wedge" cx="20" cy="20" r="10" stroke="yellow" 
@@ -55,14 +56,14 @@
     </svg>
     </a>
 
-    <p>On other OSes I've tested it causes the tab to freeze and things to chug, but once you close the tab you're fine. You should still save everything just in case.</p>
+    <p>On other OSes I've tested, it causes the tab to freeze and things to chug but once you close the tab you're fine. But your mileage may vary! Only click the above if you're willing to freeze your computer.</p>
 
     <h2>Scope</h2>
     <p>I've reproduced the deathray under MacOS on Chrome, Firefox, and Safari. It does not reproduce under other operating systems. I've only tried testing on M-series Macbooks running Tahoe; I'd be interested to hear if other Macs are impacted too!</p>
 
     <h2>How does it work?</h2>
     <p>The deathray uses a relatively new web technology: WebGPU. WebGPU provides built-in browser APIs that sites can use to submit shaders to run on the device's GPU. It's meant to replace WebGL and is supported across all major browsers on most OSes.</p>
-    <p>The entire deathray fits in a single small file that calls WebGPU. You can see the <a href="https://github.com/alope107/deathray/blob/main/index.html">source code here</a>. Most of the file is scaffolding; the important part is the WebGPU shaders.</p>
+    <p>The entire deathray fits in a single small file. You can see the <a href="https://github.com/alope107/deathray/blob/main/index.html">source code here</a>. Most of the file is scaffolding; the important part is the WebGPU shaders.</p>
 
     <h3>Compute Shader</h3>
     <pre>
@@ -102,10 +103,10 @@
     <p>Interestingly, the rest of the computer is fine at this point. You can SSH into the computer without issue. But there's a Watchdog checking the WindowServer. When it doesn't respond for long enough, it triggers a kernel panic and the computer restarts. If you've been deathray'd and are impatient you can hold down the power button to turn off and restart without waiting for the Watchdog. Just hope that your browser doesn't automatically reopen the same tab when it starts up again :)</p>
 
     <h2>Precedent</h2>
-    <p>This is actually not the first time that Apple has had this problem. In 2023, Ron Masas of Imperva crafted a similar malicious shader named <a href="https://www.imperva.com/blog/shadyshader-crashing-apple-m-series-with-single-click/">ShadyShader</a> that uses WebGL.</p>
+    <p>This is actually not the first time that Apple has had this problem. In 2023, Ron Masas of Imperva crafted a similar malicious shader named <a href="https://www.imperva.com/blog/shadyshader-crashing-apple-m-series-with-single-click/">ShadyShader</a> that uses WebGL. ShadyShader also uses a runaway loop to hog the GPU, crafting enormous nested loops that are technically non-infinite.</p>
     <p>Apple responded by issuing <a href="https://nvd.nist.gov/vuln/detail/cve-2023-40441">CVE-2023-40441</a> with a 6.5 (medium) CVSS score. To mitigate the problem, Apple added improved input validation to better detect runaway loops.</p>
-    <p>That input validation seems to be weaker in WebGPU - the deathray has what should be trivially identifiable as an infinite loop. But ultimately detecting infinite loops is a losing game; you can't get around the halting problem. There needs to be better pre-emption of unresponsive shaders, especially if those shaders are running untrusted code. All other operating systems I tested the deathray on get this right.</p>
-    <p>I wonder if part of the challenge Apple faces in fixing these type of issues is due to the architecture of M-series chips. The OS kernel cannot directly pre-empt the GPU. Instead, GPU handling is performed by a coprocessor known as the ASC which the OS kernel communicates with. All the GPU preemption logic lives in the ASC firmware. Asahi Lina has an <a href="https://asahilinux.org/2022/11/tales-of-the-m1-gpu/">excellent writeup</a> on the M-series GPUs that explores the architecture in more detail.</p>
+    <p>That input validation seems to be weaker in WebGPU - the deathray has a trivially identifiable infinite loop. But ultimately detecting infinite loops is a losing game; you can't get around the halting problem. There needs to be better pre-emption of unresponsive shaders, especially if those shaders are running untrusted code. All other operating systems I tested the deathray on get this right.</p>
+    <p>I wonder if part of the challenge Apple faces in fixing these type of issues is due to the architecture of M-series chips. The OS kernel cannot directly pre-empt the GPU. Instead, GPU handling is performed by a coprocessor known as the ASC which the OS kernel communicates with. All the GPU pre-emption logic lives in the ASC firmware. Asahi Lina has an <a href="https://asahilinux.org/2022/11/tales-of-the-m1-gpu/">excellent writeup</a> on the M-series GPUs that explores the architecture in more detail.</p>
 
     <h2>How was the deathray found?</h2>
     <p>I found this issue the old fashioned way: by accident! I was learning WebGPU and accidentally made an infinite loop. I was surprised when it hung my computer and of course asked "Does it do that every time?" Sure enough it does! I can't be the first person to have tripped across this.</p>
@@ -125,9 +126,9 @@
     <p>Auberon L&oacute;pez (they/them)</p>
     </main>
     <footer>
-        <a id="liLink" href="https://www.linkedin.com/in/auberon-lopez/"><img id="liLogo" src="https://auberonxyz/images/liLogo.png"></a>
-        <a class="ghLink" href="https://github.com/alope107"><img id="ghLogo" src="https://auberonxyz/images/ghLogo.png"><span>alope107</span></a>
-        <a class="ghLink" href="https://github.com/auberonedu"><img id="ghLogo" src="https://auberonxyz/images/ghLogo.png"><span>auberonedu</span></a>
+        <a id="liLink" href="https://www.linkedin.com/in/auberon-lopez/"><img id="liLogo" src="https://auberon.xyz/images/liLogo.png"></a>
+        <a class="ghLink" href="https://github.com/alope107"><img id="ghLogo" src="https://auberon.xyz/images/ghLogo.png"><span>alope107</span></a>
+        <a class="ghLink" href="https://github.com/auberonedu"><img id="ghLogo" src="https://auberon.xyz/images/ghLogo.png"><span>auberonedu</span></a>
     </footer>
   </body>
 </html>
