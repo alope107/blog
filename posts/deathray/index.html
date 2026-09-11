@@ -60,6 +60,7 @@
 
     <h2>Scope</h2>
     <p>I've reproduced the deathray under MacOS on Chrome, Firefox, and Safari. It does not reproduce under other operating systems. I've only tried testing on M-series Macbooks running Tahoe; I'd be interested to hear if other Macs are impacted too!</p>
+    <p>Edit (9/11/26): Folks on Hacker News have been testing it out and reporting the effects. It seems like Max M-Series are less likely to be fully frozen, but there can still be problems. Intel Macs also seem to be less susceptible. See more of <a href="https://news.ycombinator.com/item?id=49649124">the discussion here</a>.</p>
 
     <h2>How does it work?</h2>
     <p>The deathray uses a relatively new web technology: WebGPU. WebGPU provides built-in browser APIs that sites can use to submit shaders to run on the device's GPU. It's meant to replace WebGL and is supported across all major browsers on most OSes.</p>
